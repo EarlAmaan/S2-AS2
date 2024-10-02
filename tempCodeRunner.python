@@ -38,15 +38,15 @@
 # import messagebird
 
 # # Replace 'your_messagebird_api_key' with your actual MessageBird API key
-# api_key = 'bwHfcPPnrndwpCp5fwlta6N5yRKpBC9Kktap'
+# api_key = 'Enter the api key'
 
 # # Initialize the MessageBird client
 # client = messagebird.Client(api_key)
 
 # try:
-#     # Replace '+911234567890' with your Indian phone number
+#     # Replace '+00000000000000' with your Indian phone number
 #     response = client.voice_message_create(
-#         recipients=['+917355578308'],  # Replace with your Indian phone number
+#         recipients=['+000000000000'],  # Replace with your Indian phone number
 #         body='Hello, this is a test voice message.'  # Your voice message
 #     )
 #     print(f"Voice message initiated successfully. Voice message ID: {response.id}")
@@ -58,8 +58,8 @@
 from twilio.rest import Client
 
 # Replace 'your_twilio_account_sid' and 'your_twilio_auth_token' with your Twilio credentials
-account_sid = 'ACd9ec9e091bb4562a670c0e2d5741ac83'
-auth_token = 'dffda1157e9f03ae0bfd8f7e08fbe49b'
+account_sid = 'abc'
+auth_token = 'xyz'
 
 # Initialize the Twilio client
 client = Client(account_sid, auth_token)
@@ -67,8 +67,8 @@ client = Client(account_sid, auth_token)
 try:
     # Replace 'your_phone_number' with the recipient's phone number and '+1' with the appropriate country code
     call = client.calls.create(
-        to='+917355578308',  # Recipient's phone number
-        from_='+19183763907',  # Your Twilio phone number
+        to='+000000',  # Recipient's phone number
+        from_='+0000000',  # Your Twilio phone number
         url='http://demo.twilio.com/docs/voice.xml'  # TwiML URL or call instructions
     )
     print(f"Call initiated successfully. Call SID: {call.sid}")
