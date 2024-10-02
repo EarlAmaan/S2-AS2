@@ -1,0 +1,20 @@
+
+int sensorPin=7;
+int val;
+
+void setup(){
+  pinMode(sensorPin,INPUT);
+  Serial.begin(9600);
+}
+
+void loop(){
+  val=digitalRead(sensorPin);
+  int a=0, b=1;
+  if(val==HIGH){
+    Serial.println(a);
+  }
+  else {
+    Serial.println(b);
+  }
+  delay(500);
+}
