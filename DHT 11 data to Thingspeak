@@ -1,0 +1,55 @@
+#include <DHT.h>
+#include <Ethernet.h>
+#include <SPI.h>
+
+#define DHTPIN 2        // Pin to which the DHT sensor is connected
+#define DHTTYPE DHT11   // DHT 11
+#define API_KEY "YOUR_API_KEY"  // Replace with your ThingSpeak Write API Key
+
+DHT dht(DHTPIN, DHTTYPE);
+EthernetClient client;
+
+char server[] = "api.thingspeak.com";
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+  Ethernet.begin(mac);
+  delay(1000);
+}
+
+void loop() {
+  float temperature = dht.readTemperature();
+  float humidity = dht.readHumidity();
+
+  if (isnan(temperature) || isnan(humidity)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  if (client.connect(server, 80)) {
+    String postStr = "api_key=";
+    postStr += API_KEY;
+    postStr += "&field1=";
+    postStr += String(temperature);
+    postStr += "&field2=";
+    postStr += String(humidity);
+    postStr += "\r\n";
+
+    client.print("POST /update HTTP/1.1\n");
+    client.print("Host: api.thingspeak.com\n");
+    client.print("Connection: close\n");
+    client.print("X-THINGSPEAKAPIKEY: " + String(API_KEY) + "\n");
+    client.print("Content-Type: application/x-www-form-urlencoded\n");
+    client.print("Content-Length: ");
+    client.print(postStr.length());
+    client.print("\n\n");
+    client.print(postStr);
+  }
+
+  client.stop();
+
+  delay(20000);  // Wait for 20 seconds before sending next data
+}
+
+
